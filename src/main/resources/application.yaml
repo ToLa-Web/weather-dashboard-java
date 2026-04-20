@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: weather-dashboard
+
+  # H2 Database Configuration
+  datasource:
+    url: jdbc:h2:mem:weatherdb
+    driverClassName: org.h2.Driver
+    username: weather-user
+    password: password
+  h2:
+    console:
+      enabled: true # Allows you to see the DB at localhost:8080/h2-console
+
+  # JPA/Hibernate settings
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update # Automatically creates tables based on your Entities
+    show-sql: true # Prints database queries to the console for debugging
+
+# Custom Weather API Configuration
+weather:
+  api:
+    key: 986b75d940cf4e1bb4573636261804
+    base-url: https://api.weatherapi.com/v1
