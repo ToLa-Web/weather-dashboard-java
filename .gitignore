@@ -33,8 +33,10 @@ build/
 .vscode/
 
 ### Environment & Sensitive Config ###
+application.yaml
 application-local.yaml
 application-dev.yaml
+application-prod.yaml
 .env
 .env.local
 
