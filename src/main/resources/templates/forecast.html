@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="'Forecast - ' + ${city}">Forecast</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<div th:replace="~{layout :: navbar(activePage='dashboard')}"></div>
+
+<main class="page">
+    <div class="container">
+        <header class="page-header">
+            <h1><i class="fas fa-calendar-days"></i> 3-Day Forecast</h1>
+            <p class="subtitle">Hourly and daily breakdown for <strong th:text="${city}">City</strong>.</p>
+        </header>
+
+        <div th:if="${forecastError}" class="alert-warning" role="alert">
+            <i class="fas fa-triangle-exclamation"></i> <span th:text="${forecastError}"></span>
+        </div>
+
+        <section th:if="${!days.empty}" class="forecast-list" aria-label="Forecast details">
+            <article th:each="day : ${days}" class="card">
+
+                <div class="forecast-date">
+                    <i class="fas fa-calendar"></i> <span th:text="${day.date}">Date</span>
+                </div>
+
+                <div class="forecast-summary">
+                    <span class="max-temp"><i class="fas fa-arrow-up"></i> <span th:text="${day.day.maxTempC} + '°C'">--</span></span>
+                    <span class="min-temp"><i class="fas fa-arrow-down"></i> <span th:text="${day.day.minTempC} + '°C'">--</span></span>
+                    <span><i class="fas fa-cloud"></i> <span th:text="${day.day.condition.text}">--</span></span>
+                </div>
+
+                <div class="details-grid">
+                    <div class="detail">
+                        <span class="label"><i class="fas fa-droplet"></i> Humidity</span>
+                        <span style="font-size: 1.15rem;" th:text="${day.day.avgHumidity} + '%'">--%</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label"><i class="fas fa-wind"></i> Max Wind</span>
+                        <span style="font-size: 1.15rem;" th:text="${day.day.maxWindKph} + ' km/h'">--</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label"><i class="fas fa-cloud-rain"></i> Rain Chance</span>
+                        <span style="font-size: 1.15rem;" th:text="${day.day.chanceOfRain} + '%'">--%</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label"><i class="fas fa-sun"></i> UV Index</span>
+                        <span style="font-size: 1.15rem;" th:text="${day.day.uvIndex}">--</span>
+                    </div>
+                </div>
+
+                <details class="hourly-details">
+                    <summary><i class="fas fa-clock"></i> Hourly breakdown</summary>
+                    <div class="hourly-grid">
+                        <div th:each="hour : ${day.hour}" class="hour-item">
+                            <span class="hour-time" th:text="${#strings.substring(hour.time, 11, 16)}">00:00</span>
+                            <span style="font-weight: 700; font-size: 1.1rem;" th:text="${hour.tempC} + '°'">--°</span>
+                            <span th:text="${hour.condition.text}">--</span>
+                            <span style="font-size: 0.85rem;"><i class="fas fa-cloud-rain"></i> <span th:text="${hour.chanceOfRain} + '%'">--%</span></span>
+                        </div>
+                    </div>
+                </details>
+
+            </article>
+        </section>
+
+        <div th:if="${days.empty}" class="empty-state">
+            <i class="fas fa-inbox"></i> No forecast data available.
+        </div>
+
+        <div class="action-links">
+            <a th:href="@{/weather(city=${city})}"><i class="fas fa-cloud-sun"></i> View Current Weather</a>
+            <a th:href="@{/astronomy(city=${city})}"><i class="fas fa-moon"></i> View Astronomy</a>
+            <a th:href="@{/}"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

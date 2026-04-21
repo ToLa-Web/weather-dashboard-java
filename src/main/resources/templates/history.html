@@ -1,40 +1,68 @@
 ﻿<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Search History</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-light">
+<body>
 
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>📜 Weather History</h2>
-        <a th:href="@{/}" class="btn btn-secondary">Back to Dashboard</a>
-    </div>
+<div th:replace="~{layout :: navbar(activePage='history')}"></div>
 
-    <div class="table-responsive bg-white p-3 rounded shadow-sm">
-        <table class="table table-hover">
-            <thead class="table-dark">
-            <tr>
-                <th>City</th>
-                <th>Temp</th>
-                <th>Condition</th>
-                <th>Time</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="h : ${historyList}">
-                <td th:text="${h.cityName}">City</td>
-                <td th:text="${h.temperature} + '°C'">Temp</td>
-                <td th:text="${h.description}">Condition</td>
-                <td th:text="${#temporals.format(h.searchTime, 'HH:mm')}">Time</td>
-            </tr>
-            </tbody>
-        </table>
+<main class="page">
+    <div class="container">
+        <header class="page-header">
+            <h1><i class="fas fa-history"></i> Search History</h1>
+            <p class="subtitle">Recent weather queries you've searched.</p>
+        </header>
+
+        <div th:if="${historyList.empty}" class="empty-state">
+            <i class="fas fa-search"></i> No search history yet. Start by searching for a city on the dashboard.
+        </div>
+
+        <div th:if="${!historyList.empty}" class="history-table-wrap">
+            <table class="history-table">
+                <thead>
+                <tr>
+                    <th><i class="fas fa-map-marker-alt"></i> City</th>
+                    <th><i class="fas fa-thermometer-half"></i> Temp (°C)</th>
+                    <th><i class="fas fa-cloud"></i> Description</th>
+                    <th><i class="fas fa-droplet"></i> Humidity</th>
+                    <th><i class="fas fa-wind"></i> Wind (km/h)</th>
+                    <th><i class="fas fa-exclamation-circle"></i> Alert</th>
+                    <th><i class="fas fa-clock"></i> Searched At</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="entry : ${historyList}">
+                    <td>
+                        <a th:href="@{/weather(city=${entry.cityName})}" style="color: var(--primary); font-weight: 700;" th:text="${entry.cityName}">City</a>
+                    </td>
+                    <td style="font-weight: 700;" th:text="${entry.temperature}">--</td>
+                    <td th:text="${entry.description}">--</td>
+                    <td th:text="${entry.humidity} + '%'">--%</td>
+                    <td th:text="${entry.windSpeed}">--</td>
+                    <td>
+                        <span th:if="${entry.alert}" class="badge-alert">
+                            <i class="fas fa-triangle-exclamation"></i> <span th:text="${entry.alert}"></span>
+                        </span>
+                        <span th:unless="${entry.alert}" class="badge-ok">
+                            <i class="fas fa-check-circle"></i> Clear
+                        </span>
+                    </td>
+                    <td th:text="${#temporals.format(entry.searchTime, 'dd MMM yyyy HH:mm')}">--</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="action-links">
+            <a th:href="@{/}"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        </div>
     </div>
-</div>
+</main>
 
 </body>
 </html>

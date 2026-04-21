@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="'Astronomy - ' + ${city}">Astronomy</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<div th:replace="~{layout :: navbar(activePage='dashboard')}"></div>
+
+<main class="page">
+    <div class="container">
+        <header class="page-header">
+            <h1><i class="fas fa-star"></i> Astronomy</h1>
+            <p class="subtitle">Sun and moon data for <strong th:text="${city}">City</strong>.</p>
+        </header>
+
+        <section class="grid grid-2" aria-label="Astronomy details">
+
+            <article class="card">
+                <h2><i class="fas fa-sun"></i> Sun</h2>
+                <div class="details-grid">
+                    <div class="detail">
+                        <span class="label"><i class="fas fa-arrow-up"></i> Sunrise</span>
+                        <span style="font-size: 1.15rem; font-weight: 700;" th:text="${astro.sunrise}">--</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label"><i class="fas fa-arrow-down"></i> Sunset</span>
+                        <span style="font-size: 1.15rem; font-weight: 700;" th:text="${astro.sunset}">--</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <h2><i class="fas fa-moon"></i> Moon</h2>
+                <div class="details-grid">
+                    <div class="detail">
+                        <span class="label"><i class="fas fa-arrow-up"></i> Moonrise</span>
+                        <span style="font-size: 1.15rem; font-weight: 700;" th:text="${astro.moonrise}">--</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label"><i class="fas fa-arrow-down"></i> Moonset</span>
+                        <span style="font-size: 1.15rem; font-weight: 700;" th:text="${astro.moonset}">--</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label"><i class="fas fa-circle"></i> Phase</span>
+                        <span style="font-size: 1.15rem; font-weight: 700;" th:text="${astro.moonPhase}">--</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label"><i class="fas fa-lightbulb"></i> Illumination</span>
+                        <span style="font-size: 1.15rem; font-weight: 700;" th:text="${astro.moonIllumination} + '%'">--%</span>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+
+        <div class="action-links">
+            <a th:href="@{/weather(city=${city})}"><i class="fas fa-cloud-sun"></i> View Current Weather</a>
+            <a th:href="@{/forecast(city=${city})}"><i class="fas fa-chart-line"></i> View 3-Day Forecast</a>
+            <a th:href="@{/}"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

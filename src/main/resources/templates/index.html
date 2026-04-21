@@ -1,60 +1,60 @@
 ﻿<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Dash</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background-color: #f0f2f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .weather-card { border-radius: 15px; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .btn-search { border-radius: 20px; }
-    </style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>WeatherDash</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-<nav class="navbar navbar-dark bg-primary mb-4">
+<div th:replace="~{layout :: navbar(activePage='dashboard')}"></div>
+
+<main class="page">
     <div class="container">
-        <span class="navbar-brand mb-0 h1">☀️ WeatherDash</span>
-        <a th:href="@{/history}" class="btn btn-outline-light btn-sm">History</a>
-    </div>
-</nav>
+        <header class="page-header">
+            <h1><i class="fas fa-cloud-sun"></i> Weather Dashboard</h1>
+            <p class="subtitle">Get real-time weather, forecasts, and astronomy data for any city worldwide.</p>
+        </header>
 
-<div class="container">
-    <div class="row justify-content-center mb-4">
-        <div class="col-12 col-md-6">
-            <form th:action="@{/search}" method="post" class="input-group">
-                <input type="text" name="city" class="form-control" placeholder="Enter City (e.g. London)" required>
-                <button class="btn btn-primary btn-search" type="submit">Search</button>
-            </form>
+        <div th:if="${error}" class="alert-error" role="alert">
+            <i class="fas fa-exclamation-circle"></i> <span th:text="${error}"></span>
         </div>
+
+        <section class="grid grid-3" aria-label="Main actions">
+            <article class="card">
+                <h2><i class="fas fa-thermometer-half"></i> Current Weather</h2>
+                <p class="subtitle">Live conditions and detailed metrics.</p>
+                <form th:action="@{/weather}" method="get">
+                    <label for="weather-city">Search City</label>
+                    <input id="weather-city" type="text" name="city" placeholder="e.g. London, Tokyo, Sydney" required/>
+                    <button class="btn" type="submit"><i class="fas fa-search"></i> View Weather</button>
+                </form>
+            </article>
+
+            <article class="card">
+                <h2><i class="fas fa-calendar-days"></i> 3-Day Forecast</h2>
+                <p class="subtitle">Plan ahead with hourly details.</p>
+                <form th:action="@{/forecast}" method="get">
+                    <label for="forecast-city">Search City</label>
+                    <input id="forecast-city" type="text" name="city" placeholder="e.g. New York, Paris, Dubai" required/>
+                    <button class="btn" type="submit"><i class="fas fa-search"></i> View Forecast</button>
+                </form>
+            </article>
+
+            <article class="card">
+                <h2><i class="fas fa-moon"></i> Astronomy</h2>
+                <p class="subtitle">Sunrise, sunset, moon phase info.</p>
+                <form th:action="@{/astronomy}" method="get">
+                    <label for="astro-city">Search City</label>
+                    <input id="astro-city" type="text" name="city" placeholder="e.g. Tokyo, Berlin, Cairo" required/>
+                    <button class="btn" type="submit"><i class="fas fa-search"></i> View Astronomy</button>
+                </form>
+            </article>
+        </section>
     </div>
+</main>
 
-    <div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></div>
-
-    <div th:if="${weather}" class="row justify-content-center">
-        <div class="col-12 col-md-6">
-            <div class="card weather-card text-center p-4">
-                <h2 th:text="${weather.cityName}">City Name</h2>
-                <p class="text-muted" th:text="${#temporals.format(weather.searchTime, 'dd MMM yyyy, HH:mm')}"></p>
-                <h1 class="display-3" th:text="${weather.temperature} + '°C'">25°C</h1>
-                <h4 class="text-capitalize" th:text="${weather.description}">Sunny</h4>
-
-                <div class="row mt-4">
-                    <div class="col">
-                        <h6>Humidity</h6>
-                        <p th:text="${weather.humidity} + '%'"></p>
-                    </div>
-                    <div class="col">
-                        <h6>Wind</h6>
-                        <p th:text="${weather.windSpeed} + ' km/h'"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

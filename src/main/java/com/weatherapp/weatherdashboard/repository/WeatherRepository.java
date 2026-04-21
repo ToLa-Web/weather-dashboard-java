@@ -1,4 +1,4 @@
-﻿package com.weatherapp.weatherdashboard.repository;
+package com.weatherapp.weatherdashboard.repository;
 
 import com.weatherapp.weatherdashboard.entity.WeatherHistory;
 import org.springframework.data.jpa.repository.JpaRepository;

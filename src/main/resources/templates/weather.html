@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="'Weather - ' + ${city}">Weather</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<div th:replace="~{layout :: navbar(activePage='dashboard')}"></div>
+
+<main class="page">
+    <div class="container">
+        <header class="page-header">
+            <h1><i class="fas fa-map-marker-alt"></i> <span th:text="${weather.cityName}">City</span></h1>
+            <p class="subtitle">Current weather conditions and real-time data.</p>
+        </header>
+
+        <div th:if="${weather.alert}" class="alert-warning" role="alert">
+            <i class="fas fa-triangle-exclamation"></i> <span th:text="${weather.alert}"></span>
+        </div>
+
+        <section class="card">
+            <div class="weather-card-header">
+                <div>
+                    <div class="metric" th:text="${weather.temperature} + '°C'">--°C</div>
+                    <div class="desc">
+                        <i class="fas fa-cloud"></i> <span th:text="${weather.description}">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="details-grid">
+                <div class="detail">
+                    <span class="label"><i class="fas fa-droplet"></i> Humidity</span>
+                    <span style="font-size: 1.2rem;" th:text="${weather.humidity} + '%'">--%</span>
+                </div>
+                <div class="detail">
+                    <span class="label"><i class="fas fa-wind"></i> Wind Speed</span>
+                    <span style="font-size: 1.2rem;" th:text="${weather.windSpeed} + ' km/h'">-- km/h</span>
+                </div>
+                <div class="detail">
+                    <span class="label"><i class="fas fa-clock"></i> Last Updated</span>
+                    <span th:text="${#temporals.format(weather.searchTime, 'dd MMM HH:mm')}">--</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="action-links">
+            <a th:href="@{/forecast(city=${city})}"><i class="fas fa-chart-line"></i> View 3-Day Forecast</a>
+            <a th:href="@{/astronomy(city=${city})}"><i class="fas fa-moon"></i> View Astronomy</a>
+            <a th:href="@{/}"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
