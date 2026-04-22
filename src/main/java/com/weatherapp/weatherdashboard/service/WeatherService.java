@@ -39,7 +39,6 @@ public class WeatherService {
                 .queryParam("q", city)
                 .build()
                 .toUriString();
-
         try {
             WeatherDTO response = restTemplate.getForObject(url, WeatherDTO.class);
             if (response == null) throw new CityNotFoundException(city);

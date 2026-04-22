@@ -25,44 +25,29 @@ public class WeatherController {
 
     @GetMapping("/weather")
     public String getWeather(@RequestParam String city, Model model) {
-        try {
-            WeatherHistory weather = weatherService.getAndSaveWeather(city);
-            model.addAttribute("weather", weather);
-            model.addAttribute("city", city);
-        } catch (RuntimeException e) {
-            model.addAttribute("error", "City not found: " + city);
-            return "index";
-        }
+        WeatherHistory weather = weatherService.getAndSaveWeather(city);
+        model.addAttribute("weather", weather);
+        model.addAttribute("city", city);
         return "weather";
     }
 
     @GetMapping("/forecast")
     public String getForecast(@RequestParam String city, Model model) {
-        try {
-            ForecastDTO forecast = weatherService.getForecast(city);
-            model.addAttribute("forecast", forecast);
-            model.addAttribute("city", city);
-            model.addAttribute("days", forecast.getForecast().getForecastDay());
-        } catch (RuntimeException e) {
-            model.addAttribute("error", "City not found: " + city);
-            return "index";
-        }
+        ForecastDTO forecast = weatherService.getForecast(city);
+        model.addAttribute("forecast", forecast);
+        model.addAttribute("city", city);
+        model.addAttribute("days", forecast.getForecast().getForecastDay());
         return "forecast";
     }
 
     @GetMapping("/astronomy")
     public String getAstronomy(@RequestParam String city, Model model) {
-        try {
-            AstronomyDTO astronomy = weatherService.getAstronomy(city);
-            model.addAttribute("astronomy", astronomy);
-            model.addAttribute("city", city);
+        AstronomyDTO astronomy = weatherService.getAstronomy(city);
+        model.addAttribute("astronomy", astronomy);
+        model.addAttribute("city", city);
 
-            // Unwrap the nested astro object for direct access in template
-            model.addAttribute("astro", astronomy.getAstronomy().getAstro());
-        } catch (RuntimeException e) {
-            model.addAttribute("error", "City not found: " + city);
-            return "index";
-        }
+        // Unwrap the nested astro object for direct access in template
+        model.addAttribute("astro", astronomy.getAstronomy().getAstro());
         return "astronomy";
     }
 
