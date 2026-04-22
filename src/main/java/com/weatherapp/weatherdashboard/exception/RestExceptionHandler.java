@@ -15,13 +15,6 @@ import java.time.LocalDateTime;
 @Slf4j
 @RestControllerAdvice(assignableTypes = WeatherRestController.class)
 public class RestExceptionHandler {
-    public record ErrorResponse(
-            int status,
-            String title,
-            String message,
-            String path,
-            LocalDateTime timestamp  // ← real world always includes timestamp
-    ) {}
 
     @ExceptionHandler(CityNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleCityNotFound(
@@ -32,7 +25,7 @@ public class RestExceptionHandler {
                 404,
                 "City Not Found",
                 ex.getMessage(),
-                request.getRequestURI(),   // ← tells client which URL failed
+                request.getRequestURI(),
                 LocalDateTime.now()
         ));
     }
