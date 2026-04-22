@@ -1,0 +1,20 @@
+﻿<h2>🏆 Most Searched Cities</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Rank</th>
+        <th>City</th>
+        <th>Searches</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row, stat : ${topCities}">
+        <td th:text="${stat.index + 1}">1</td>
+        <td>
+            <a th:href="@{/weather(city=${row[0]})}"
+               th:text="${row[0]}">City</a>
+        </td>
+        <td th:text="${row[1]}">0</td>
+    </tr>
+    </tbody>
+</table>
