@@ -1,4 +1,4 @@
-﻿package com.weatherapp.weatherdashboard.entity;
+package com.weatherapp.weatherdashboard.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

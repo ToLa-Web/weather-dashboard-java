@@ -1,4 +1,4 @@
-﻿package com.weatherapp.weatherdashboard.exception;
+package com.weatherapp.weatherdashboard.exception;
 
 import java.time.LocalDateTime;
 

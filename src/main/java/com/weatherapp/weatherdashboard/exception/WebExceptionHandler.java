@@ -1,4 +1,4 @@
-﻿package com.weatherapp.weatherdashboard.exception;
+package com.weatherapp.weatherdashboard.exception;
 
 import com.weatherapp.weatherdashboard.controller.WeatherController;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-﻿package com.weatherapp.weatherdashboard.controller;
+package com.weatherapp.weatherdashboard.controller;
 
 import com.weatherapp.weatherdashboard.dto.*;
 import com.weatherapp.weatherdashboard.entity.WeatherHistory;

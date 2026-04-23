@@ -1,4 +1,4 @@
-﻿package com.weatherapp.weatherdashboard.dto;
+package com.weatherapp.weatherdashboard.dto;
 
 import com.weatherapp.weatherdashboard.dto.shared.LocationDTO;
 import lombok.Data;

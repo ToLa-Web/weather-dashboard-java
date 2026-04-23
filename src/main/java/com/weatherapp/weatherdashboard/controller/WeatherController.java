@@ -32,7 +32,7 @@ public class WeatherController {
 
         IpLookupDTO location = weatherService.detectLocation();
         log.info("✅ Location detected: {} ({}, {})",
-                 location.getCity(), location.getRegionName(), location.getCountryName());
+                 location.getCity(), location.getRegion(), location.getCountry());
 
         return "redirect:/weather?city=" +
                 URLEncoder.encode(location.getCity(), StandardCharsets.UTF_8);

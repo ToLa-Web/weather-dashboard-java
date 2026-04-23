@@ -1,4 +1,4 @@
-﻿package com.weatherapp.weatherdashboard.dto;
+package com.weatherapp.weatherdashboard.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
