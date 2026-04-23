@@ -3,6 +3,7 @@
 import com.weatherapp.weatherdashboard.dto.*;
 import com.weatherapp.weatherdashboard.entity.WeatherHistory;
 import com.weatherapp.weatherdashboard.service.WeatherService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,8 +53,8 @@ public class WeatherRestController {
     }
 
     @GetMapping("/history")
-    public ResponseEntity<List<WeatherHistory>> getHistory() {
-        return ResponseEntity.ok(weatherService.getAllHistory());
+    public ResponseEntity<Page<WeatherHistory>> getHistory(@RequestParam(defaultValue = "0") int page) {
+        return ResponseEntity.ok(weatherService.getAllHistory(page));
     }
 
     @GetMapping("/stats/top-cities")

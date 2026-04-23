@@ -46,8 +46,12 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(HttpServerErrorException.class)
     public ResponseEntity<ErrorResponse> handleApiDown(
+            HttpServerErrorException ex,
             HttpServletRequest request) {
-        log.error("WeatherAPI server error");
+        log.error("WeatherAPI DOWN! Status: {}, URL: {}, Time: {}",
+                ex.getStatusCode(),
+                request.getRequestURI(),
+                LocalDateTime.now());
         return ResponseEntity.status(503).body(new ErrorResponse(
                 503,
                 "Service Unavailable",

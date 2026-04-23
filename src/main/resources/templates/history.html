@@ -58,6 +58,38 @@
             </table>
         </div>
 
+        <!-- Pagination Controls -->
+        <div th:if="${!historyList.empty}" class="pagination-container" style="margin-top: 30px; text-align: center;">
+            <div class="pagination" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; align-items: center;">
+                <!-- Previous Button -->
+                <a th:if="${currentPage > 0}"
+                   th:href="@{/history(page=${currentPage - 1})}"
+                   class="btn"
+                   style="padding: 8px 15px; font-size: 0.9rem;">
+                    <i class="fas fa-chevron-left"></i> Previous
+                </a>
+                <span th:unless="${currentPage > 0}" class="btn" style="padding: 8px 15px; opacity: 0.5; cursor: not-allowed;">
+                    <i class="fas fa-chevron-left"></i> Previous
+                </span>
+
+                <!-- Page Info -->
+                <span style="font-weight: 600; color: var(--primary); min-width: 120px;">
+                    Page <span th:text="${currentPage + 1}">1</span> of <span th:text="${totalPage}">1</span>
+                </span>
+
+                <!-- Next Button -->
+                <a th:if="${currentPage + 1 < totalPage}"
+                   th:href="@{/history(page=${currentPage + 1})}"
+                   class="btn"
+                   style="padding: 8px 15px; font-size: 0.9rem;">
+                    Next <i class="fas fa-chevron-right"></i>
+                </a>
+                <span th:unless="${currentPage + 1 < totalPage}" class="btn" style="padding: 8px 15px; opacity: 0.5; cursor: not-allowed;">
+                    Next <i class="fas fa-chevron-right"></i>
+                </span>
+            </div>
+        </div>
+
         <div class="action-links">
             <a th:href="@{/}"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
         </div>

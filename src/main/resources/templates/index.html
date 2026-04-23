@@ -22,6 +22,16 @@
             <i class="fas fa-exclamation-circle"></i> <span th:text="${error}"></span>
         </div>
 
+        <section class="grid grid-2" style="margin-bottom: 40px;" aria-label="Quick actions">
+            <article class="card" style="grid-column: 1 / -1; text-align: center;">
+                <h2><i class="fas fa-location-dot"></i> Auto-Detect My Location</h2>
+                <p class="subtitle">Get weather for your current location instantly.</p>
+                <a th:href="@{/detect-location}" class="btn" style="display: inline-block; margin-top: 15px;">
+                    <i class="fas fa-location-arrow"></i> Use My Location
+                </a>
+            </article>
+        </section>
+
         <section class="grid grid-3" aria-label="Main actions">
             <article class="card">
                 <h2><i class="fas fa-thermometer-half"></i> Current Weather</h2>
@@ -51,6 +61,36 @@
                     <input id="astro-city" type="text" name="city" placeholder="e.g. Tokyo, Berlin, Cairo" required/>
                     <button class="btn" type="submit"><i class="fas fa-search"></i> View Astronomy</button>
                 </form>
+            </article>
+        </section>
+
+        <section class="grid grid-3" style="margin-top: 40px;" aria-label="Additional features">
+            <article class="card">
+                <h2><i class="fas fa-clock"></i> Timezone Info</h2>
+                <p class="subtitle">Check time zone information.</p>
+                <form th:action="@{/timezone}" method="get">
+                    <label for="tz-city">Search City</label>
+                    <input id="tz-city" type="text" name="city" placeholder="e.g. Singapore, Moscow" required/>
+                    <button class="btn" type="submit"><i class="fas fa-search"></i> Get Timezone</button>
+                </form>
+            </article>
+
+            <article class="card">
+                <h2><i class="fas fa-baseball"></i> Sports Events</h2>
+                <p class="subtitle">Major sporting events worldwide.</p>
+                <form th:action="@{/sports}" method="get">
+                    <label for="sports-city">Search City</label>
+                    <input id="sports-city" type="text" name="city" placeholder="e.g. London, New York" required/>
+                    <button class="btn" type="submit"><i class="fas fa-search"></i> View Sports</button>
+                </form>
+            </article>
+
+            <article class="card">
+                <h2><i class="fas fa-chart-bar"></i> Statistics</h2>
+                <p class="subtitle">View your search history and top cities.</p>
+                <a th:href="@{/stats}" class="btn" style="display: block; margin-top: 35px;">
+                    <i class="fas fa-chart-bar"></i> View Statistics
+                </a>
             </article>
         </section>
     </div>

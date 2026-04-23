@@ -14,8 +14,17 @@
             <a th:href="@{/}" th:classappend="${activePage == 'dashboard'} ? 'active' : ''">
                 <i class="fas fa-home"></i> Dashboard
             </a>
+            <a th:href="@{/weather(city='London')}" th:classappend="${activePage == 'weather'} ? 'active' : ''">
+                <i class="fas fa-cloud-sun"></i> Weather
+            </a>
+            <a th:href="@{/forecast(city='London')}" th:classappend="${activePage == 'forecast'} ? 'active' : ''">
+                <i class="fas fa-calendar-days"></i> Forecast
+            </a>
             <a th:href="@{/history}" th:classappend="${activePage == 'history'} ? 'active' : ''">
                 <i class="fas fa-history"></i> History
+            </a>
+            <a th:href="@{/stats}" th:classappend="${activePage == 'stats'} ? 'active' : ''">
+                <i class="fas fa-chart-bar"></i> Statistics
             </a>
         </div>
     </nav>
