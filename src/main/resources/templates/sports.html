@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="'Sports Events - ' + ${city}">Sports</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<div th:replace="~{layout :: navbar(activePage='dashboard')}"></div>
+
+<main class="page">
+    <div class="container">
+        <header class="page-header">
+            <h1><i class="fas fa-baseball"></i> Sports Events</h1>
+            <p class="subtitle">Major sporting events in <strong th:text="${city}">City</strong>.</p>
+        </header>
+
+        <!-- No Events Message -->
+        <div th:if="${sports == null || (sports.football == null || sports.football.isEmpty()) &&
+                                         (sports.cricket == null || sports.cricket.isEmpty()) &&
+                                         (sports.golf == null || sports.golf.isEmpty())}" class="empty-state">
+            <i class="fas fa-info-circle"></i> No upcoming sporting events found for this location.
+        </div>
+
+        <!-- Football Events -->
+        <section th:if="${sports != null && sports.football != null && !sports.football.isEmpty()}" class="grid grid-1">
+            <article class="card">
+                <h2><i class="fas fa-football"></i> Football</h2>
+                <div class="sports-events">
+                    <div th:each="event : ${sports.football}" class="sport-item">
+                        <div class="sport-header">
+                            <span class="badge" style="background: #ff6b6b;"><i class="fas fa-stadium"></i> <span th:text="${event.stadium}">Stadium</span></span>
+                        </div>
+                        <div class="sport-details">
+                            <p><strong><i class="fas fa-trophy"></i> Tournament:</strong> <span th:text="${event.tournament}">Tournament</span></p>
+                            <p><strong><i class="fas fa-handshake"></i> Match:</strong> <span th:text="${event.match}">Match</span></p>
+                            <p><strong><i class="fas fa-map-marker-alt"></i> Location:</strong> <span th:text="${event.region} + ', ' + ${event.country}">Location</span></p>
+                            <p><strong><i class="fas fa-calendar"></i> Start Time:</strong> <span th:text="${event.start}">Time</span></p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- Cricket Events -->
+        <section th:if="${sports != null && sports.cricket != null && !sports.cricket.isEmpty()}" class="grid grid-1">
+            <article class="card">
+                <h2><i class="fas fa-cricket"></i> Cricket</h2>
+                <div class="sports-events">
+                    <div th:each="event : ${sports.cricket}" class="sport-item">
+                        <div class="sport-header">
+                            <span class="badge" style="background: #4ecdc4;"><i class="fas fa-stadium"></i> <span th:text="${event.stadium}">Stadium</span></span>
+                        </div>
+                        <div class="sport-details">
+                            <p><strong><i class="fas fa-trophy"></i> Tournament:</strong> <span th:text="${event.tournament}">Tournament</span></p>
+                            <p><strong><i class="fas fa-handshake"></i> Match:</strong> <span th:text="${event.match}">Match</span></p>
+                            <p><strong><i class="fas fa-map-marker-alt"></i> Location:</strong> <span th:text="${event.region} + ', ' + ${event.country}">Location</span></p>
+                            <p><strong><i class="fas fa-calendar"></i> Start Time:</strong> <span th:text="${event.start}">Time</span></p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- Golf Events -->
+        <section th:if="${sports != null && sports.golf != null && !sports.golf.isEmpty()}" class="grid grid-1">
+            <article class="card">
+                <h2><i class="fas fa-golf-ball"></i> Golf</h2>
+                <div class="sports-events">
+                    <div th:each="event : ${sports.golf}" class="sport-item">
+                        <div class="sport-header">
+                            <span class="badge" style="background: #95e1d3;"><i class="fas fa-golf-ball"></i> <span th:text="${event.stadium}">Course</span></span>
+                        </div>
+                        <div class="sport-details">
+                            <p><strong><i class="fas fa-trophy"></i> Tournament:</strong> <span th:text="${event.tournament}">Tournament</span></p>
+                            <p><strong><i class="fas fa-map-marker-alt"></i> Location:</strong> <span th:text="${event.region} + ', ' + ${event.country}">Location</span></p>
+                            <p><strong><i class="fas fa-calendar"></i> Start Time:</strong> <span th:text="${event.start}">Time</span></p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <div class="action-links">
+            <a th:href="@{/weather(city=${city})}"><i class="fas fa-cloud-sun"></i> View Current Weather</a>
+            <a th:href="@{/}"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        </div>
+    </div>
+</main>
+
+<style>
+    .sports-events {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .sport-item {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(100, 200, 255, 0.1);
+        border-radius: 8px;
+        padding: 15px;
+        transition: all 0.3s ease;
+    }
+
+    .sport-item:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(100, 200, 255, 0.3);
+    }
+
+    .sport-header {
+        margin-bottom: 12px;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: white;
+    }
+
+    .sport-details p {
+        margin: 8px 0;
+        font-size: 0.95rem;
+        color: #d0d0d0;
+        line-height: 1.5;
+    }
+
+    .sport-details strong {
+        color: var(--primary);
+        font-weight: 700;
+    }
+</style>
+
+</body>
+</html>
+

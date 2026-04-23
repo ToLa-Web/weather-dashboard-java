@@ -1,7 +1,6 @@
 package com.weatherapp.weatherdashboard.repository;
 
 import com.weatherapp.weatherdashboard.entity.WeatherHistory;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

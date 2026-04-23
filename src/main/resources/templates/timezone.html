@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="'Timezone - ' + ${city}">Timezone</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<div th:replace="~{layout :: navbar(activePage='dashboard')}"></div>
+
+<main class="page">
+    <div class="container">
+        <header class="page-header">
+            <h1><i class="fas fa-clock"></i> Timezone Information</h1>
+            <p class="subtitle">Time zone details for <strong th:text="${city}">City</strong>.</p>
+        </header>
+
+        <section class="grid grid-1" aria-label="Timezone details">
+            <article class="card">
+                <h2><i class="fas fa-globe"></i> Location</h2>
+                <div class="details-grid">
+                    <div class="detail">
+                        <span class="label"><i class="fas fa-map-pin"></i> City</span>
+                        <span style="font-size: 1.15rem; font-weight: 700;" th:text="${tz.location.name}">--</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label"><i class="fas fa-map-marker-alt"></i> Region</span>
+                        <span style="font-size: 1.15rem; font-weight: 700;" th:text="${tz.location.region}">--</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label"><i class="fas fa-earth-americas"></i> Country</span>
+                        <span style="font-size: 1.15rem; font-weight: 700;" th:text="${tz.location.country}">--</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label"><i class="fas fa-compass"></i> Coordinates</span>
+                        <span style="font-size: 1.15rem; font-weight: 700;">
+                            <span th:text="${tz.location.lat}">--</span>°,
+                            <span th:text="${tz.location.lon}">--</span>°
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <h2><i class="fas fa-hourglass-end"></i> Timezone Details</h2>
+                <div class="details-grid">
+                    <div class="detail">
+                        <span class="label"><i class="fas fa-id-card"></i> Timezone ID</span>
+                        <span style="font-size: 1.15rem; font-weight: 700;" th:text="${tz.location.tzId}">--</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label"><i class="fas fa-clock"></i> UTC Offset</span>
+                        <span style="font-size: 1.15rem; font-weight: 700;" th:text="${tz.location.utcOffset}">--</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label"><i class="fas fa-sun"></i> Is Daylight</span>
+                        <span style="font-size: 1.15rem; font-weight: 700;">
+                            <span th:if="${tz.location.isDst == true}" class="badge-ok">✓ Yes</span>
+                            <span th:if="${tz.location.isDst == false}" class="badge-alert">✗ No</span>
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <h2><i class="fas fa-calendar-check"></i> Current Time</h2>
+                <div class="details-grid">
+                    <div class="detail">
+                        <span class="label"><i class="fas fa-watch"></i> Local Time</span>
+                        <span style="font-size: 1.15rem; font-weight: 700;" th:text="${tz.location.localDatetime}">--</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label"><i class="fas fa-calendar"></i> Local Date</span>
+                        <span style="font-size: 1.15rem; font-weight: 700;">
+                            <span th:text="${#temporals.format(tz.location.localdatetimeEpoch, 'dd MMM yyyy')}">--</span>
+                        </span>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <div class="action-links">
+            <a th:href="@{/weather(city=${city})}"><i class="fas fa-cloud-sun"></i> View Current Weather</a>
+            <a th:href="@{/forecast(city=${city})}"><i class="fas fa-chart-line"></i> View 3-Day Forecast</a>
+            <a th:href="@{/}"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
+
