@@ -1,2 +1,7 @@
 /mvnw text eol=lf
 *.cmd text eol=crlf
+
+# Linguist: Mark HTML templates as documentation to exclude from language statistics
+src/main/resources/templates/* linguist-documentation
+static/* linguist-documentation
+
